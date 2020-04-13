@@ -1,0 +1,22 @@
+
+
+
+.profile__title{
+    color: #FFFFFF;
+    font-family: "Inter Medium";
+    font-size: 42px;
+    line-height: 56px;
+    width: 295px;
+    height: 43px;
+    margin-top: 58px;
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px){
+    .profile__title{
+       font-size: 27px;
+       width: 201px;
+        margin-top: 0;
+        margin: auto;
+    }
+}

@@ -1,0 +1,13 @@
+
+.header__logo:hover{
+    opacity: 0.2;
+    background-color: #000000;
+}
+
+@media (max-width: 900px){
+    
+    .header__logo{
+     margin-left: 28px;
+     padding-bottom: 31px;
+     }
+}

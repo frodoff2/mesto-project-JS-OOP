@@ -1,0 +1,10 @@
+@import url('./element/__image/element__image.css');
+@import url('./element/__like/element__like.css');
+@import url('./element/__text/element__text.css');
+@import url('./element/__title/element__title.css');
+
+@media (max-width: 900px){
+    .element{
+        margin: auto;
+    }
+}

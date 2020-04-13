@@ -1,0 +1,25 @@
+
+.profile__edit{
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    border: 1px white solid;
+    margin-top: 77px;
+    margin-left: 17px;
+    cursor: pointer;
+}
+.profile__edit:hover{
+    border: 1px solid rgba(255, 255, 255);
+    opacity: 0.6;
+}
+
+@media (max-width: 900px){
+    
+    .profile__edit{
+    grid-column: 1/2; 
+    grid-row: 2/4; 
+    margin: auto;
+    margin-left: 245px;
+    margin-top: 30px;
+    }
+}
