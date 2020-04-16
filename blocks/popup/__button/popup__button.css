@@ -5,7 +5,12 @@
     margin-top: 48px;
     margin-left: 34px;
     border-radius: 2px;
-
+    color: white;
+    font-family: "Inter";
+    text-align: center;
+    line-height: 22px;    
+    font-size: 18px;
+    
 }
 
 .popup__button:hover{

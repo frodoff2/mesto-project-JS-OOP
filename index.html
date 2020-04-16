@@ -4,23 +4,22 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link rel="stylesheet" href="./pages/index.css"> 
-    <link rel="stylesheet" href="./fonts.css"> 
     <title>Mesto</title> 
   </head> 
   <body> 
     <div class="page">  
       <section class="popup">
         <form class="popup__container">
-          <img class="popup__close_icon" src="./images/Close Icon.png"> 
+          <div class="popup__close"></div> 
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__info" value="Исследователь океана">
-          <button class="popup__button"> <p class="popup__button_caption">Сохранить</p> </button>
+          <input type="text" class="popup__input" value="Жак-Ив Кусто" name="firstname">
+          <input type="text" class="popup__input" value="Исследователь океана" name="info">
+            <input class="popup__button" type="button" value="Сохранить"> 
         </form>
       </section>
         
       <header class="header">
-        <img class="header__logo" src="images/logo.svg" alt="логотип"> 
+        <img class="header__logo" src="./images/logo.svg" alt="логотип">
       </header>
 
       <section class="profile">
@@ -90,6 +89,8 @@
 
       <footer class="footer">
         <p class="footer__text"> &copy; 2020 Mesto Russia</p>
+        <div class="f"></div>
+
       </footer>
 
     </div>
