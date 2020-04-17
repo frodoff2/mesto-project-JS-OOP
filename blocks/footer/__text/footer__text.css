@@ -5,7 +5,6 @@
     color: #545454;
     font-weight: 300;
 }
-
 @media (max-width: 900px){
     .footer__text{
      padding-bottom: 0;
