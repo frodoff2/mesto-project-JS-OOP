@@ -1,0 +1,37 @@
+.popup__button{
+    width: 83.2%;
+    height: 50.15px;
+    background: #000000;
+    margin-top: 48px;
+    margin-left: 34px;
+    border-radius: 2px;
+    color: white;
+    font-family: "Inter";
+    text-align: center;
+    line-height: 22px;    
+    font-size: 18px;
+    font-weight: 300;
+
+}
+
+.popup__button[value="сохранить"] {
+    color: white;
+    font-family: "Inter";
+    text-align: center;
+    line-height: 22px;    
+    font-size: 18px;
+}
+
+.popup__button:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+ 
+@media (max-width: 530px){
+    .popup__button{
+        width: 83%;
+        margin-left: 20px;
+    }
+}
+ 

@@ -1,0 +1,11 @@
+
+.page{
+    margin: 0 auto;
+    background-color: #000000;
+}
+
+@media (max-width: 900px){
+    .page{
+        max-width: 900px;
+    }
+}
