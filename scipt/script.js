@@ -10,11 +10,10 @@ let saveButton = document.querySelector('.popup__button');
 
 
 function popupOpen() {
+    popup.classList.add('popup_opened');
 
 nameInput.value = profileName.textContent;
 jobInput.value = profileJob.textContent;
-
-    popup.classList.add('popup_opened');
 }
 
 editButton.addEventListener('click' , popupOpen);
@@ -35,6 +34,6 @@ saveButton.addEventListener('click', popupClose);
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-
+formElement.addEventListener('submit', popupClose);
 
 
