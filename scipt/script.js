@@ -8,32 +8,25 @@ let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__subtitle');
 let saveButton = document.querySelector('.popup__button');
 
-
 function popupOpen() {
-    popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened');
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
 
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
+function popupClose() {
+  popup.classList.remove('popup_opened');
+}
+
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  popupClose();
 }
 
 editButton.addEventListener('click' , popupOpen);
-
-function popupClose() {
-    popup.classList.remove('popup_opened');
-}
-
 closeButton.addEventListener('click', popupClose);
-
-function formSubmitHandler (evt) {
-    evt.preventDefault();
-
-profileName.textContent = nameInput.value;
-profileJob.textContent = jobInput.value;
-
-saveButton.addEventListener('click', popupClose);
-}
-
 formElement.addEventListener('submit', formSubmitHandler);
-formElement.addEventListener('submit', popupClose);
 
 

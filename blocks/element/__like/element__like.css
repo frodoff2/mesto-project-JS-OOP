@@ -4,9 +4,8 @@
     cursor: pointer;
     margin-top: 28px;
     background-image: url(../../../images/like.svg);
-    margin-right: 29.87px;
-}
-
-.element__like:hover{
-    opacity: 0.5;
+    margin-right: 22px;
+    border: none;
+    background-color: transparent;
+    outline: none;
 }

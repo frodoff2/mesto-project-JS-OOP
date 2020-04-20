@@ -1,13 +1,16 @@
 .footer__text{
-    font-family: "Inter", "Arial", sans-serif; 
-    font-size: 18px;
-    line-height: 22px;
-    color: #545454;
-    font-weight: 300;
+  font-family: "Inter", "Arial", sans-serif; 
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+  font-weight: 400;
 }
+
 @media (max-width: 900px){
-    .footer__text{
-     padding-bottom: 0;
+  .footer__text{
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 0;
     margin-bottom: 0;
-   } 
+  } 
 }  

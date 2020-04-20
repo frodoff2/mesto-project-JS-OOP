@@ -4,7 +4,7 @@
 @import url('__title/element__title.css');
 
 @media (max-width: 900px){
-    .element{
-        margin: auto;
-    }
+  .element{
+    margin: auto;
+  }
 }

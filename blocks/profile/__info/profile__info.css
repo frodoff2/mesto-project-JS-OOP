@@ -1,9 +1,8 @@
-@media (max-width: 900px){
-    
-    .profile__info{
-     grid-column: 1/2; 
-     grid-row: 2/4;
-     margin: auto;
-     margin-top: 14px;
-    }
+@media (max-width: 900px){ 
+  .profile__info{
+    grid-column: 1/2; 
+    grid-row: 2/4;
+    margin: auto;
+    margin-top: 14px;
+  }
 }
