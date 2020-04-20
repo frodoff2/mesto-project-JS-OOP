@@ -1,9 +1,11 @@
 .header__logo{
-    margin-bottom: 40px;
+  max-width: 142.01px;
+  max-height: 33.4px;
+  margin-bottom: 40px;
 }
 .header__logo:hover{
-    opacity: 0.2;
-    background-color: #000000;
+  opacity: 0.2;
+  background-color: #000000;
 }
 
 @media (max-width: 900px){
