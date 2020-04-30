@@ -16,10 +16,20 @@
   opacity: 0.6;
   cursor: pointer;
 }
+ 
+ 
+@media (max-width: 500px){ 
+  .popup__input{ 
+    width: 83%; 
+    margin-left: 20px;  
+  } 
+} 
 
 @media (max-width: 400px){
   .popup__close{ 
-    top: -40px;
-    right: -37px;
+    top: -23px;
+    right: -23px;
+    width: 30px;
+    height: 30px;
   }
 }

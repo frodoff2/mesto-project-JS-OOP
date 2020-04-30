@@ -3,8 +3,6 @@
 @import url('__container/popup__container.css');
 @import url('__input/popup__input.css');
 @import url('__title/popup__title.css');
-@import url('__image/popup__image.css');
-
 
 .popup{
   width: 100%;

@@ -16,11 +16,14 @@
   opacity: 0.8;
   cursor: pointer;
 }
-
+  
 @media (max-width: 500px){
   .popup__button{
     width: 83%;
     margin-left: 20px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 36px;
   }
 }
  

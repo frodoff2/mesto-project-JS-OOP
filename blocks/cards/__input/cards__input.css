@@ -17,5 +17,8 @@
     .cards__input{
       width: 83%;
       margin-left: 20px; 
+      margin-top: 20px;
+      font-size: 12px;
+      line-height: 15px;
     }
   }

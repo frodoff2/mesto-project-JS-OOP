@@ -2,10 +2,10 @@
     background-image: url(../../../images/closeicon.svg);
     background-size: contain;
     margin: auto;
-    width: 52px;
-    height: 52px;
-    right: -42px;
-    top: -32px;
+    width: 40px;
+    height: 40px;
+    right: -35px;
+    top: -25px;
     position: absolute;
     border: none;
     background-color: transparent;
@@ -15,4 +15,20 @@
   .zoom__close:hover{
     opacity: 0.6;
     cursor: pointer;
+  }
+
+  @media (max-width: 500px){
+    .zoom__close{
+      width: 30px;
+      height: 30px;
+      right: -25px;
+      top: -18px;
+    }
+  }
+
+  @media (max-width: 320px){
+    .zoom__close{     
+      right: -40px;
+      top: -18px;
+    }
   }

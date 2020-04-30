@@ -12,6 +12,7 @@
   
   @media (max-width: 500px){
     .cards__container{
-      width: 80%;
+      width: 75%;
+      height: 258px;
     }
   }
