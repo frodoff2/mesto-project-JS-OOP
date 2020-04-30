@@ -1,0 +1,28 @@
+.cards__button{
+    width: 83.2%;
+    min-height: 50px;
+    background: #000000;
+    margin-top: 48px;
+    margin-left: 34px;
+    border-radius: 2px;
+    color: white;
+    font-family: "Inter", "Arial", sans-serif;
+    text-align: center;
+    line-height: 22px;    
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .cards__button:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 500px){
+    .cards__button{
+      width: 83%;
+      margin-left: 20px;
+    }
+  }
+   
+  

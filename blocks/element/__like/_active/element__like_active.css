@@ -1,15 +1,16 @@
-.element__like{
+.element__like_active{
+    background-image: url(../../../../images/likeactive.svg);
     height: 18.13px;
     width: 20.76px;
     cursor: pointer;
     margin-top: 28px;
-    background-image: url(../../../images/like.svg);
     margin-right: 22px;
     border: none;
     background-color: transparent;
     outline: none;
+    opacity: 1;
 }
 
-.element__like:hover{
-    opacity: 0.5;
+.element__like_active:hover{
+    opacity: 1;
 }

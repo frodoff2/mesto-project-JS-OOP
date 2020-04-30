@@ -8,6 +8,7 @@
   </head> 
   <body> 
     <div class="page">  
+<!-- Попап редактировать профиль -->
       <section class="popup">
         <form class="popup__container">
           <button class="popup__close" type="button"></button>
@@ -17,7 +18,25 @@
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </section>
-
+<!-- Попап добавлять карточки -->
+      <section class="cards">
+        <form class="cards__container">
+          <button class="cards__close" type="button"></button>
+          <h2 class="cards__title">Новое место</h2>
+          <input type="text" class="cards__input" name="название" placeholder="Название" id="cards__name">
+          <input type="text" class="cards__input" name="ссылка" placeholder="Ссылка на картинку" id="cards__info">
+          <button class="cards__button" type="submit">Создать</button>
+        </form>
+      </section>  
+<!-- Попап увеличенной карточки -->
+      <section class="zoom">
+        <div class="zoom__container">
+          <button class="zoom__close" type="button"></button>
+          <img class="zoom__image">
+          <p class="zoom__title"></p>
+        </div>
+      </section>
+      
       <header class="header">
         <img class="header__logo" src="images/logo.svg" alt="логотип"> 
       </header>
@@ -33,54 +52,7 @@
       </section>
 
       <section class="elements">
-        <div class="element"> 
-          <img class="element__image" src="./images/karach.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element"> 
-          <img class="element__image" src="./images/elbrus.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element"> 
-          <img class="element__image" src="./images/dombay.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element"> 
-          <img class="element__image" src="./images/elbrus.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element"> 
-          <img class="element__image" src="./images/dombay.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
-        <div class="element"> 
-          <img class="element__image" src="./images/karach.png" alt="пейзаж"> 
-          <div class="element__text">
-            <h2 class="element__title">Карачаево-Черкассия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-
+      
       </section>
 
       <footer class="footer">
@@ -88,6 +60,18 @@
       </footer>
 
     </div>
+   
+    <template id="elements-template"> 
+      <div class="element"> 
+        <img class="element__image" alt="пейзаж"> 
+        <button class="element__trash" type="button"></button>
+        <div class="element__text">
+          <h2 class="element__title"></h2>
+          <button class="element__like" type="button"></button>
+
+        </div>
+      </div>
+    </template>
 
     <script src='./scipt/script.js'></script>
 

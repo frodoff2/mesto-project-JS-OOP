@@ -2,6 +2,14 @@
 @import url('__like/element__like.css');
 @import url('__text/element__text.css');
 @import url('__title/element__title.css');
+@import url('__trash/element__trash.css');
+@import url('__like/_active/element__like_active.css');
+@import url('__trash/_active/element__trash_active.css');
+@import url('__image/_opened/element__image_opened.css');
+
+.element{
+  position: relative;
+}
 
 @media (max-width: 900px){
   .element{

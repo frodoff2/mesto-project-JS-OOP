@@ -8,25 +8,114 @@ let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__subtitle');
 let saveButton = document.querySelector('.popup__button');
 
+const cards = document.querySelector('.cards');
+const elements = document.querySelector('.elements');
+const cardsAddButton = document.querySelector('.profile__add-button');
+const cardsCloseButton = document.querySelector('.cards__close');
+const formCards = document.querySelector('.cards__container');
+const titleInput = document.getElementById('cards__name');
+const imageInput = document.getElementById('cards__info');
+
+const zoom = document.querySelector('.zoom');
+const zoomCards = document.querySelector('.zoom__container');
+const zoomImage = document.querySelector('.zoom__image');
+const zoomTitle = document.querySelector('.zoom__title');
+const zoomCloseBtn = document.querySelector('.zoom__close');
+
+
+const initialCards = [
+  {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+// клонирование карточек //
+function addCards(title, image) {
+  const elementsTemplate = document.querySelector('#elements-template').content;
+  const elementsCards =  elementsTemplate.cloneNode(true);
+  elementsCards.querySelector('.element__title').textContent = title;
+  elementsCards.querySelector('.element__image').src = image;
+  // ставить лайки //
+  elementsCards.querySelector('.element__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('element__like_active');
+  });
+  // удалять карточки //
+  elementsCards.querySelector('.element__trash').addEventListener('click', function (evt) {
+    evt.target.parentElement.classList.add('element__trash_active');
+  });
+  elementsCards.querySelector('.element__image').addEventListener('click', function (evt) {
+    zoomOpen();
+    zoomImage.src = evt.target.src;
+    zoomTitle.textContent = title;
+  });
+  return elementsCards;
+}
+
+// карточки из массива //
+initialCards.forEach(function (card) {
+  elements.append(addCards(card.name, card.link));
+})
+
+// добавления новых карточек //
+function cardSubmitHandler (evt) {
+  evt.preventDefault();
+  elements.prepend(addCards(titleInput.value, imageInput.value));
+  cardsOpen();
+  titleInput.value = '';
+  imageInput.value = '';
+}
+
 function popupOpen() {
-  popup.classList.add('popup_opened');
+  popup.classList.toggle('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-function popupClose() {
-  popup.classList.remove('popup_opened');
+function zoomOpen() { 
+  zoom.classList.toggle('zoom_opened');
+ }
+
+function cardsOpen() {
+  cards.classList.toggle('cards_opened');
+  titleInput.value = '';
+  imageInput.value = '';
 }
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popupClose();
+  popupOpen();
 }
 
 editButton.addEventListener('click' , popupOpen);
-closeButton.addEventListener('click', popupClose);
+closeButton.addEventListener('click', popupOpen);
 formElement.addEventListener('submit', formSubmitHandler);
+
+formCards.addEventListener('submit', cardSubmitHandler);
+zoomCloseBtn.addEventListener('click', zoomOpen);
+cardsAddButton.addEventListener('click', cardsOpen);
+cardsCloseButton.addEventListener('click', cardsOpen);
 
 
