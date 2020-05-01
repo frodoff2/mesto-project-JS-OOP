@@ -9,14 +9,12 @@
 @import url('__caption/popup__caption.css');
 @import url('__title/_margins/popup__title_margins.css');
 @import url('_opacity/popup_opacity.css');
-@import url('_opacity-normal/');
+@import url('_opacity-normal/popup_opacity-normal.css');
 
 .popup{
   width: 100%;
   height: 100%;
   position: fixed;
-
-
   z-index: 1;
   opacity: 0;
   visibility: hidden;
