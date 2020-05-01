@@ -1,4 +1,4 @@
-.zoom__close{
+.popup__close-zoom{
     background-image: url(../../../images/closeicon.svg);
     background-size: contain;
     margin: auto;
@@ -12,13 +12,13 @@
     outline: none;
 }
   
-  .zoom__close:hover{
+  .popup__close-zoom:hover{
     opacity: 0.6;
     cursor: pointer;
   }
 
-  @media (max-width: 500px){
-    .zoom__close{
+  @media (max-width: 600px){
+    .popup__close-zoom{
       width: 30px;
       height: 30px;
       right: -25px;
@@ -26,8 +26,8 @@
     }
   }
 
-  @media (max-width: 320px){
-    .zoom__close{     
+  @media (max-width: 325px){
+    .popup__close-zoom{     
       right: -40px;
       top: -18px;
     }

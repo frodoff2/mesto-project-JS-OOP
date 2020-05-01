@@ -3,12 +3,20 @@
 @import url('__container/popup__container.css');
 @import url('__input/popup__input.css');
 @import url('__title/popup__title.css');
+@import url('__zoomed/popup__zoomed.css');
+@import url('__close-zoom/popup__close-zoom.css');
+@import url('__image/popup__image.css');
+@import url('__caption/popup__caption.css');
+@import url('__title/_margins/popup__title_margins.css');
+@import url('_opacity/popup_opacity.css');
+@import url('_opacity-normal/');
 
 .popup{
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   position: fixed;
+
+
   z-index: 1;
   opacity: 0;
   visibility: hidden;
