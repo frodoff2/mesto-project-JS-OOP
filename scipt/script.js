@@ -2,10 +2,10 @@ const popup = document.getElementById('info');
 const editButton = document.querySelector('.profile__edit'); 
 const closeButton = document.querySelector('.popup__close'); 
 const formElement = document.querySelector('.popup__container'); 
-let nameInput = document.getElementById('popup__name'); 
-let jobInput = document.getElementById('popup__info'); 
-let profileName = document.querySelector('.profile__title'); 
-let profileJob = document.querySelector('.profile__subtitle'); 
+const nameInput = document.getElementById('popup__name'); 
+const jobInput = document.getElementById('popup__info'); 
+const profileName = document.querySelector('.profile__title'); 
+const profileJob = document.querySelector('.profile__subtitle'); 
  
 const cards = document.getElementById('locations'); 
 const elements = document.querySelector('.elements'); 
@@ -48,12 +48,8 @@ const initialCards = [
   } 
 ]; 
 
-function popupOpen(form) { 
+function togglePopup(form) { 
   form.classList.toggle('popup_opened'); 
-  nameInput.value = profileName.textContent; 
-  jobInput.value = profileJob.textContent; 
-  titleInput.value = ''; 
-  imageInput.value = ''; 
 } 
 
 // клонирование карточек // 
@@ -72,7 +68,7 @@ function createCards(title, image) {
     evt.target.parentElement.classList.add('element__trash_active'); 
   }); 
   elementsCards.querySelector('.element__image').addEventListener('click', function (evt) { 
-    popupOpen(zoom); 
+    togglePopup(zoom); 
     zoomImage.src = evt.target.src; 
     zoomImage.alt = title;
     zoomTitle.textContent = title; 
@@ -89,7 +85,7 @@ initialCards.forEach(function (card) {
 function cardSubmitHandler (evt) { 
   evt.preventDefault(); 
   elements.prepend(createCards(titleInput.value, imageInput.value)); 
-  popupOpen(cards); 
+  togglePopup(cards); 
   titleInput.value = ''; 
   imageInput.value = ''; 
 } 
@@ -98,14 +94,20 @@ function formSubmitHandler (evt) {
   evt.preventDefault(); 
   profileName.textContent = nameInput.value; 
   profileJob.textContent = jobInput.value; 
-  popupOpen(popup); 
+  togglePopup(popup); 
 } 
+
+function editForm(){
+    togglePopup(popup);
+    nameInput.value = profileName.textContent; 
+    jobInput.value = profileJob.textContent; 
+  }
  
-editButton.addEventListener('click' , () => popupOpen(popup)); 
-closeButton.addEventListener('click', () => popupOpen(popup)); 
+editButton.addEventListener('click' , editForm); 
+closeButton.addEventListener('click', () => togglePopup(popup)); 
 formElement.addEventListener('submit', formSubmitHandler); 
  
 formCards.addEventListener('submit', cardSubmitHandler); 
-zoomCloseBtn.addEventListener('click', () => popupOpen(zoom)); 
-cardsAddButton.addEventListener('click', () => popupOpen(cards)); 
-cardsClose.addEventListener('click', () => popupOpen(cards));
+zoomCloseBtn.addEventListener('click', () => togglePopup(zoom)); 
+cardsAddButton.addEventListener('click', () => togglePopup(cards)); 
+cardsClose.addEventListener('click', () => togglePopup(cards));
