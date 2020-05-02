@@ -5,7 +5,7 @@
     width: 40px;
     height: 40px;
     right: -35px;
-    top: -25px;
+    top: -35px;
     position: absolute;
     border: none;
     background-color: transparent;
@@ -17,18 +17,11 @@
     cursor: pointer;
   }
 
-  @media (max-width: 600px){
+  @media (max-width: 350px){
     .popup__close-zoom{
       width: 30px;
       height: 30px;
       right: -25px;
-      top: -18px;
-    }
-  }
-
-  @media (max-width: 325px){
-    .popup__close-zoom{     
-      right: -40px;
-      top: -18px;
+      top: -25px;
     }
   }
