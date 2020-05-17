@@ -10,6 +10,10 @@
 @import url('__title/_margins/popup__title_margins.css');
 @import url('_opacity/popup_opacity.css');
 @import url('_opacity-normal/popup_opacity-normal.css');
+@import url('__input/_type/popup__input_type_error.css');
+@import url('__input-error/popup__input-error.css');
+@import url('__input-error/_active/popup__input-error_active.css');
+@import url('__button/_inactive/popup__button_inactive.css');
 
 .popup{
   width: 100%;
@@ -19,4 +23,4 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s, visibility 0s, linear 0.5s;
-}
+  }
