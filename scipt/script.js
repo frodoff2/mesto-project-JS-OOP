@@ -52,11 +52,6 @@ const initialCards = [
 initialCards.forEach(function (card) {  
   elements.append(createCards(card.name, card.link));  
 })  
-// функция закрытия и открытия всех форм
-function togglePopup(form) { 
-  keyHandler(form);
-  form.classList.toggle('popup_opened'); 
-}  
 
 // закрытие при нажатии оверлей
 function overlayPopup(evt) {
@@ -64,6 +59,19 @@ function overlayPopup(evt) {
     evt.target.classList.remove('popup_opened');
   }
 };
+// закрытие на esc 
+function keyHandler(form) {
+  document.addEventListener('keydown', function(evt) {
+  if (evt.key === 'Escape') {
+    togglePopup(form);
+    }
+});
+}
+// функция закрытия и открытия всех форм
+function togglePopup(form) { 
+  keyHandler(form);
+  form.classList.toggle('popup_opened'); 
+}  
 
 // клонирование карточек //  
 function createCards(title, image) {  
@@ -115,13 +123,6 @@ editButton.addEventListener('click' , editForm);
 popup.addEventListener('click', overlayPopup);
 cards.addEventListener('click', overlayPopup);
 zoom.addEventListener('click', overlayPopup);
-function keyHandler(form) {
-  document.addEventListener('keydown', function(evt) {
-  if (evt.key === 'Escape') {
-      togglePopup(form);
-    }
-});
-}
 
 closeButton.addEventListener('click', () => togglePopup(popup));  
 formElement.addEventListener('submit', formSubmitHandler);  
