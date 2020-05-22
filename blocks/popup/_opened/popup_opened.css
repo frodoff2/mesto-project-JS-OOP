@@ -1,7 +1,7 @@
 .popup_opened{
-  display: -webkit-box;
-  display: -ms-flexbox;
+  z-index: 10;
   display: flex;
   visibility: visible;
   opacity: 1;
+  transition: z-index .5s;
 }
