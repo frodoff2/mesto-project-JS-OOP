@@ -3,5 +3,4 @@
   display: flex;
   visibility: visible;
   opacity: 1;
-  transition: z-index .5s;
 }

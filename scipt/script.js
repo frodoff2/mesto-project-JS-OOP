@@ -1,13 +1,13 @@
 const popup = document.getElementById('info');  
 const editButton = document.querySelector('.profile__edit');  
 const closeButton = document.querySelector('.popup__close');  
-const formElement = document.forms.form; // контейнер формы  
+const formElements = document.forms.form; // контейнер формы  
 const nameInput = document.getElementById('popup__name');  
 const jobInput = document.getElementById('popup__info');  
 const profileName = document.querySelector('.profile__title');  
 const profileJob = document.querySelector('.profile__subtitle');  
 const elementsTemplate = document.querySelector('#elements-template').content;  
-const popupOpened = document.querySelector('popup_opened');
+const formButton = document.querySelector('.popup__button_active');
 
 const cards = document.getElementById('locations');  
 const elements = document.querySelector('.elements');  
@@ -16,15 +16,17 @@ const cardsClose = document.querySelector('.popup__close_picture');
 const formCards = document.getElementById('form-cards'); // контейенер формы  
 const titleInput = document.getElementById('cards__name');  
 const imageInput = document.getElementById('cards__info');  
-  
+const nameSpan = document.getElementById('cards__name-error');
+const infoSpan = document.getElementById('cards__info-error');
+
 const zoom = document.getElementById('zoom');  
 const zoomImage = document.querySelector('.popup__image');  
 const zoomTitle = document.querySelector('.popup__caption');  
 const zoomCloseBtn = document.querySelector('.popup__close-zoom');  
 
-const input = Array.from(document.querySelectorAll('.popup__input'));
-const span = Array.from(document.querySelectorAll('.popup__input-error'));
-const button = Array.from(document.querySelectorAll('.popup__button'));
+const inputItems = Array.from(document.querySelectorAll('.popup__input'));
+const spanItems = Array.from(document.querySelectorAll('.popup__input-error'));
+const buttonItems = Array.from(document.querySelectorAll('.popup__button'));
 
 
 const initialCards = [  
@@ -64,19 +66,21 @@ function closeOverlay(evt) {
 // закрытие на esc 
 function keyHandler(evt) {
   if (evt.key === 'Escape') {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
+    const popupOpen = document.querySelector('.popup_opened');
+    closePopup(popupOpen);
   };
 }
 // очищаем ошибки
 function cleanError() {
-  input.forEach((element) => {
+  inputItems.forEach((element) => {
     element.classList.remove('popup__input_type_error');
   });
-  span.forEach((elem) => {
+  spanItems.forEach((elem) => {
     elem.classList.remove('popup__input-error_active');
     elem.textContent = ''; 
+
   });
-  button.forEach((item) => {
+  buttonItems.forEach((item) => {
     item.setAttribute('disabled', true);
     item.classList.add('popup__button_inactive');
   });
@@ -86,6 +90,8 @@ function cleanError() {
 function openPopup(form) { 
   form.classList.add('popup_opened'); 
   cleanError();
+  formButton.disabled = false;
+  formButton.classList.remove('popup__button_inactive');
   document.addEventListener('keydown', keyHandler);
 }  
 function closePopup(form) { 
@@ -116,13 +122,13 @@ function createCards(name, link) {
   return elementsCards;  
 }  
 
-function prependCards({name, link}) {
+function prependCards(name, link) {
   elements.prepend(createCards(name, link));
 }
 
 // карточки из массива //   
 function massiveCards() {
-  initialCards.forEach((name, link) => {   
+  initialCards.forEach(({name, link}) => {   
   prependCards(name, link);   
 });
 }
@@ -133,10 +139,11 @@ function cardSubmitHandler (evt) {
   evt.preventDefault(); 
   const name = titleInput.value;
   const link = imageInput.value;
-  prependCards({name, link});  
+  prependCards(name, link);  
   closePopup(cards);  
   titleInput.value = '';  
-  imageInput.value = '';  
+  imageInput.value = ''; 
+
 }  
 // изменить имя и профиль // 
 function formSubmitHandler (evt) {  
@@ -158,9 +165,15 @@ cards.addEventListener('click', closeOverlay);
 zoom.addEventListener('click', closeOverlay);
 
 closeButton.addEventListener('click', () => closePopup(popup));  
-formElement.addEventListener('submit', formSubmitHandler);  
+formElements.addEventListener('submit', formSubmitHandler);  
 
 formCards.addEventListener('submit', cardSubmitHandler);  
 zoomCloseBtn.addEventListener('click', () => closePopup(zoom));  
-cardsAddButton.addEventListener('click', () => openPopup(cards));  
+cardsAddButton.addEventListener('click', () => {
+  openPopup(cards);
+  nameSpan.textContent = titleInput.validationMessage;
+  nameSpan.classList.add('popup__input-error_active');
+  infoSpan.textContent = imageInput.validationMessage;
+  infoSpan.classList.add('popup__input-error_active');
+});
 cardsClose.addEventListener('click', () => closePopup(cards));

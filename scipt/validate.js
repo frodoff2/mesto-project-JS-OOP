@@ -7,16 +7,13 @@ const showInputError = (item, formElement, inputElement, errorMessage) => {
     } else {
         errorElement.textContent = '';
         inputElement.classList.remove('popup__input_type_error');
+        errorElement.classList.remove('item.errorClass');
   }
 };
   
     // функция проверки валидности формы //
   const checkInputValidity = (item, formElement, inputElement) => {
-    if (!inputElement.validity.valid) {
-      showInputError(item, formElement, inputElement, inputElement.validationMessage);
-    } else { 
-    showInputError(item, formElement, inputElement);
-    }
+    showInputError(item, formElement, inputElement, inputElement.validationMessage);
   };  
 
 
@@ -42,26 +39,27 @@ const setEventListeners = (item, formElement) => {
   const buttonElement = formElement.querySelector(item.submitButtonSelector);
   toggleButtonState(item, inputLists, buttonElement);
     // обойти все элементы
-    inputLists.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-      checkInputValidity(item, formElement, inputElement);
-      toggleButtonState(item, inputLists, buttonElement);
-    });
-  });
-  };
+    inputLists.forEach((inputElement) => { 
+        inputElement.addEventListener('input', () => { 
+        checkInputValidity(item, formElement, inputElement); 
+        toggleButtonState(item, inputLists, buttonElement); 
+      }); 
+    }); 
+    }; 
 
   // функция для обработки
-const enableValidation = (item) => {
-  const formLists = Array.from(document.querySelectorAll(item.formSelector));
-    formLists.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      });
-      // Для каждой формы вызовем функцию setEventListeners,
-      // передав ей элемент формы
-      setEventListeners(item, formElement);
-      });
-  };  
+  // функция для обработки 
+  const enableValidation = (item) => { 
+    const formLists = Array.from(document.querySelectorAll(item.formSelector)); 
+      formLists.forEach((formElement) => { 
+        formElement.addEventListener('submit', (evt) => { 
+        evt.preventDefault(); 
+        }); 
+        // Для каждой формы вызовем функцию setEventListeners, 
+        // передав ей элемент формы 
+        setEventListeners(item, formElement); 
+        }); 
+    };    
 
 enableValidation({ 
   formSelector: '.popup__container',
@@ -71,4 +69,3 @@ enableValidation({
   inputErrorClass: 'popup__input-error',
   errorClass: 'popup__input-error_active'
 });
-
