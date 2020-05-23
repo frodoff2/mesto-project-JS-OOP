@@ -172,8 +172,8 @@ zoomCloseBtn.addEventListener('click', () => closePopup(zoom));
 cardsAddButton.addEventListener('click', () => {
   openPopup(cards);
   nameSpan.textContent = titleInput.validationMessage;
-  nameSpan.classList.add('popup__input-error_active');
+  nameSpan.classList.toggle('popup__input-error_active');
   infoSpan.textContent = imageInput.validationMessage;
-  infoSpan.classList.add('popup__input-error_active');
+  infoSpan.classList.toggle('popup__input-error_active');
 });
 cardsClose.addEventListener('click', () => closePopup(cards));
