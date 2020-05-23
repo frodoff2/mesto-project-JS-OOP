@@ -7,7 +7,7 @@ const showInputError = (item, formElement, inputElement, errorMessage) => {
     } else {
         errorElement.textContent = '';
         inputElement.classList.remove('popup__input_type_error');
-        errorElement.classList.remove('item.errorClass');
+        errorElement.classList.remove(item.errorClass);
   }
 };
   
