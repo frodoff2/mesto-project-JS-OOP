@@ -24,8 +24,8 @@ const zoomImage = document.querySelector('.popup__image');
 const zoomTitle = document.querySelector('.popup__caption');  
 const zoomCloseBtn = document.querySelector('.popup__close-zoom');  
 
-const inputInput = document.getElementById('cards__name');
-const inputUrl = document.getElementById('cards__info');
+const cardName = document.getElementById('cards__name');
+const cardInfo = document.getElementById('cards__info');
 
 const inputItems = Array.from(document.querySelectorAll('.popup__input'));
 const spanItems = Array.from(document.querySelectorAll('.popup__input-error'));
@@ -179,7 +179,7 @@ formCards.addEventListener('submit', cardSubmitHandler);
 zoomCloseBtn.addEventListener('click', () => closePopup(zoom));  
 cardsAddButton.addEventListener('click', (item) => {
   openPopup(cards);
-  checkInputValidity(item, formCards, inputInput);
-  checkInputValidity(item, formCards, inputUrl);
+  checkInputValidity(item, formCards, cardName);
+  checkInputValidity(item, formCards, cardInfo);
 });
 cardsClose.addEventListener('click', () => closePopup(cards));
