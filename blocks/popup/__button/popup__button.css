@@ -1,7 +1,7 @@
 .popup__button{
   width: 83.2%;
   min-height: 50px;
-  margin-top: 48px;
+  margin-top: 31px;
   margin-left: 34px;
   border-radius: 2px;
   background: black;
@@ -23,7 +23,18 @@
     margin-left: 20px;
     font-size: 14px;
     line-height: 17px;
-    margin-top: 36px;
+    margin-top: 28px;
   }
 }
+
+@media (max-width: 369px){
+  .popup__button{
+    width: 83%;
+    margin-left: 20px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 25px;
+  }
+}
+ 
  

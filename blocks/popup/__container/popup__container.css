@@ -1,18 +1,18 @@
-.popup__container{
-  max-width: 430px;
-  max-height: 330px;
-  background: white;
-  border-radius: 10px;   
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.7s, visibility 0s linear 0.3s;
-}
+.popup__container{ 
+  width: 430px; 
+  height: 330px; 
+  background: white; 
+  border-radius: 10px;    
+  position: relative; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  transition: opacity 0.7s, visibility 0s linear 0.3s; 
+} 
 
 @media (max-width: 500px){
   .popup__container{
     width: 75%;
-    height: 258px;
+    height: 258px; 
   }
 }

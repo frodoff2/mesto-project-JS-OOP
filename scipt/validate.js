@@ -1,15 +1,16 @@
 const showInputError = (item, formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    errorElement.textContent = errorMessage;
-    if (errorMessage) {
-        inputElement.classList.add('popup__input_type_error'); //красная рамка
-        errorElement.classList.add(item.errorClass);
-    } else {
-        errorElement.textContent = '';
-        inputElement.classList.remove('popup__input_type_error');
-        errorElement.classList.remove(item.errorClass);
-  }
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorElement.textContent = errorMessage;
+  if (errorMessage) {
+      inputElement.classList.add(item.inputErrorClass); //красная рамка
+      errorElement.classList.add(item.errorClass);
+  } else {
+      errorElement.textContent = '';
+      inputElement.classList.remove(item.inputErrorClass);
+      errorElement.classList.remove(item.errorClass);
+}
 };
+
   
     // функция проверки валидности формы //
   const checkInputValidity = (item, formElement, inputElement) => {
@@ -48,7 +49,6 @@ const setEventListeners = (item, formElement) => {
     }; 
 
   // функция для обработки
-  // функция для обработки 
   const enableValidation = (item) => { 
     const formLists = Array.from(document.querySelectorAll(item.formSelector)); 
       formLists.forEach((formElement) => { 
@@ -66,6 +66,7 @@ enableValidation({
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input-error',
+  inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 });
+

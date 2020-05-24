@@ -24,6 +24,9 @@ const zoomImage = document.querySelector('.popup__image');
 const zoomTitle = document.querySelector('.popup__caption');  
 const zoomCloseBtn = document.querySelector('.popup__close-zoom');  
 
+const inputInput = document.getElementById('cards__name');
+const inputUrl = document.getElementById('cards__info');
+
 const inputItems = Array.from(document.querySelectorAll('.popup__input'));
 const spanItems = Array.from(document.querySelectorAll('.popup__input-error'));
 const buttonItems = Array.from(document.querySelectorAll('.popup__button'));
@@ -61,6 +64,8 @@ const initialCards = [
 function closeOverlay(evt) {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
+    titleInput.value = '';  
+    imageInput.value = ''; 
   }
 };
 // закрытие на esc 
@@ -68,6 +73,8 @@ function keyHandler(evt) {
   if (evt.key === 'Escape') {
     const popupOpen = document.querySelector('.popup_opened');
     closePopup(popupOpen);
+    titleInput.value = '';  
+    imageInput.value = ''; 
   };
 }
 // очищаем ошибки
@@ -96,6 +103,8 @@ function openPopup(form) {
 }  
 function closePopup(form) { 
   form.classList.remove('popup_opened'); 
+  formButton.disabled = false;
+  formButton.classList.remove('popup__button_inactive');
   document.removeEventListener('keydown', keyHandler);
 }  
  
@@ -143,7 +152,6 @@ function cardSubmitHandler (evt) {
   closePopup(cards);  
   titleInput.value = '';  
   imageInput.value = ''; 
-
 }  
 // изменить имя и профиль // 
 function formSubmitHandler (evt) {  
@@ -169,11 +177,9 @@ formElements.addEventListener('submit', formSubmitHandler);
 
 formCards.addEventListener('submit', cardSubmitHandler);  
 zoomCloseBtn.addEventListener('click', () => closePopup(zoom));  
-cardsAddButton.addEventListener('click', () => {
+cardsAddButton.addEventListener('click', (item) => {
   openPopup(cards);
-  nameSpan.textContent = titleInput.validationMessage;
-  nameSpan.classList.toggle('popup__input-error_active');
-  infoSpan.textContent = imageInput.validationMessage;
-  infoSpan.classList.toggle('popup__input-error_active');
+  checkInputValidity(item, formCards, inputInput);
+  checkInputValidity(item, formCards, inputUrl);
 });
 cardsClose.addEventListener('click', () => closePopup(cards));

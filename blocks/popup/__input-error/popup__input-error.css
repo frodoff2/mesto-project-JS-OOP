@@ -5,8 +5,10 @@
   line-height: 17px;
   color: #FF0000;;
   margin-left: 36px;
-  position: absolute;
-  width: 83.2%;
+  height: 50px;
+  display: flex;
+  width: 358px;
+  height: 12px;
 }
 
 @media (max-width: 500px){
