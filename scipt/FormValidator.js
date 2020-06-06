@@ -1,4 +1,4 @@
-export class FormValidator{
+export default class FormValidator{
     constructor(data, formElement) {
     //  this._formSelector = data.formSelector;
       this._inputSelector = data.inputSelector;
@@ -41,8 +41,8 @@ export class FormValidator{
   _toggleButtonState = (inputLists , buttonElement) => {
       buttonElement.classList.toggle(this._inactiveButtonClass, this._hasInvalidInput(inputLists)); 
       buttonElement.disabled = this._hasInvalidInput(inputLists); 
-  };
-     
+   };
+
     // создаем обработчик событий для всех форм //
   _setEventListeners = () => {
     // нужно сделать массив из всех инпутов
@@ -63,4 +63,17 @@ export class FormValidator{
         // передав ей элемент формы 
         this._setEventListeners(this._formElement);
       }
-  }  
+    cleanError() {
+        const inputItems = Array.from(document.querySelectorAll(this._inputSelector)); 
+        const spanItems = Array.from(document.querySelectorAll('.popup__input-error')); 
+
+        inputItems.forEach((element) => { 
+            element.classList.remove('popup__input_type_error'); 
+          }); 
+        spanItems.forEach((elem) => { 
+            elem.classList.remove('popup__input-error_active'); 
+            elem.textContent = '';  
+          }); 
+        }; 
+
+    } 

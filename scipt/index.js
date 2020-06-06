@@ -1,5 +1,5 @@
-import {Card} from './Card.js';  
-import {FormValidator} from './FormValidator.js';
+import Card from './Card.js';  
+import FormValidator from './FormValidator.js';
 
 const zoom = document.getElementById('zoom');   
 const popup = document.getElementById('info');   
@@ -19,8 +19,6 @@ const formCards = document.getElementById('form-cards'); // контейенер
 const titleInput = document.getElementById('cards__name');   
 const imageInput = document.getElementById('cards__info');  
  
-const inputItems = Array.from(document.querySelectorAll('.popup__input')); 
-const spanItems = Array.from(document.querySelectorAll('.popup__input-error')); 
 const buttonItems = Array.from(document.querySelectorAll('.popup__button')); 
  
  
@@ -69,47 +67,36 @@ export function keyHandler(evt) {
     imageInput.value = '';  
   }; 
 } 
-// очищаем ошибки 
+function clearError() {
+  const element = {};
+  const object = {inputSelector: '.popup__input'};
+  const valid = new FormValidator(object, element);
+  valid.cleanError();
+}
 
-function cleanError() { 
-  inputItems.forEach((element) => { 
-    element.classList.remove('popup__input_type_error'); 
-  }); 
-  spanItems.forEach((elem) => { 
-    elem.classList.remove('popup__input-error_active'); 
-    elem.textContent = '';  
- 
-  }); 
-  buttonItems.forEach((item) => { 
-    item.setAttribute('disabled', true); 
-    item.classList.add('popup__button_inactive'); 
-  }); 
-};  
- 
 // функция закрытия и открытия всех форм 
 export function openPopup(form) {  
-  form.classList.add('popup_opened');  
-  cleanError(); 
-  formButton.disabled = false; 
-  formButton.classList.remove('popup__button_inactive'); 
+  form.classList.add('popup_opened');
+  clearError();  
   document.addEventListener('keydown', keyHandler); 
 }   
 export function closePopup(form) {  
   form.classList.remove('popup_opened');  
-  formButton.disabled = false; 
-  formButton.classList.remove('popup__button_inactive'); 
   document.removeEventListener('keydown', keyHandler); 
 }   
   
   // обойдем массив 
-initialCards.forEach((item) => {
+function renderCards() {
+  initialCards.forEach((item) => {
   // экземпляр каждой карточки
   const card = new Card(item, '.elements-template');   
   // карточка и возрврат наружу 
   const cardElement = card.generateCard();
   // добавляем в ДОМ 
   document.querySelector('.elements').append(cardElement);
-});
+  });
+};
+renderCards();
 
 // добавления новых карточек //   
 function cardSubmitHandler (evt) {   
@@ -140,29 +127,41 @@ function editForm(){
 }  
 
 // обработаем ошибки //
-function formValidation() { 
-  const formLists = Array.from(document.querySelectorAll('.popup__container')); 
+  function formValidation() { 
+    const formLists = Array.from(document.querySelectorAll('.popup__container')); 
+    const formSettings = { 
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+  };
     formLists.forEach((form) => { 
-      const validator = new FormValidator({ inputSelector: '.popup__input',
-        submitButtonSelector: '.popup__button',
-        inactiveButtonClass: 'popup__button_inactive',
-        inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__input-error_active'}, form);
-    validator.enableValidation();
-     }); 
+      const validator = new FormValidator(formSettings, form);
+      validator.enableValidation();
+});
 }
-
 formValidation();
 
-editButton.addEventListener('click' , editForm);   
+editButton.addEventListener('click', () => {
+  editForm();
+  formButton.disabled = false;  
+  formButton.classList.remove('popup__button_inactive');
+});   
 popup.addEventListener('click', closeOverlay); 
 cards.addEventListener('click', closeOverlay); 
 document.getElementById('zoom').addEventListener('click', closeOverlay); 
- 
+
 closeButton.addEventListener('click', () => closePopup(popup));   
 formElements.addEventListener('submit', formSubmitHandler);   
  
 formCards.addEventListener('submit', cardSubmitHandler);   
 document.querySelector('.popup__close-zoom').addEventListener('click', () => closePopup(zoom));   
-cardsAddButton.addEventListener('click', () => openPopup(cards));
+cardsAddButton.addEventListener('click', () => {
+  openPopup(cards);
+  buttonItems.forEach((item) => { 
+    item.setAttribute('disabled', true); 
+    item.classList.add('popup__button_inactive'); 
+  });
+ });
 cardsClose.addEventListener('click', () => closePopup(cards)); 
