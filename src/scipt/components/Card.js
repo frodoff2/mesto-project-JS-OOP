@@ -1,10 +1,9 @@
-import {openPopup} from './index.js';  
-
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor({ data,  handleCardClick }, cardSelector) {
     this._name = data.name;
-    this._link= data.link;
+    this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -26,7 +25,7 @@ export default class Card {
     this._setEventListeners();
 
     return this._element;
-    }
+  }
 
   _likeCard() {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
@@ -36,22 +35,16 @@ export default class Card {
   }
 
   _setEventListeners() {
-    const zoom = document.getElementById('zoom');   
-    const zoomImage = document.querySelector('.popup__image');   
-    const zoomTitle = document.querySelector('.popup__caption');  
+ this._element.querySelector('.element__image').addEventListener('click', () => {
+   this._handleCardClick();
+   });
 
-    this._element.querySelector('.element__image').addEventListener('click', () => {
-      zoomImage.src = this._link;
-      zoomTitle.textContent = this._name;
-      openPopup(zoom);
-    });
+   this._element.querySelector('.element__like').addEventListener('click', () => {
+    this._likeCard();
+   });
 
-    this._element.querySelector('.element__like').addEventListener('click', () => {
-      this._likeCard();
-    });
-
-    this._element.querySelector('.element__trash').addEventListener('click', () => {
-      this._deleteCard();
-    });
-   }
+   this._element.querySelector('.element__trash').addEventListener('click', () => {
+    this._deleteCard();
+  });
   }
+}

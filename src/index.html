@@ -10,12 +10,12 @@
     <div class="page">   
 <!-- Попап редактировать профиль --> 
       <section class="popup popup_opacity-normal" id="info"> 
-        <form class="popup__container" name="form" novalidate> 
+        <form class="popup__container" name="form" id="form-info" novalidate> 
           <button class="popup__close" type="reset"></button> 
           <h2 class="popup__title">Редактировать профиль</h2> 
-          <input type="text" class="popup__input" name="input" id="popup__name" minlength="2" maxlength="40" required pattern="[A-Za-zА-ЯЁа-яё -]{1,}" value="Жак-Ив Кусто"> 
+          <input type="text" class="popup__input" name="name" id="popup__name" minlength="2" maxlength="40" required pattern="[A-Za-zА-ЯЁа-яё -]{1,}" value="Жак-Ив Кусто"> 
           <span class="popup__input-error" id="popup__name-error"></span>
-          <input type="text" class="popup__input" name="input" value="Исследователь океана" id="popup__info" minlength="2" maxlength="200" required>
+          <input type="text" class="popup__input" name="link" value="Исследователь океана" id="popup__info" minlength="2" maxlength="200" required>
           <span class="popup__input-error" id="popup__info-error"></span> 
           <button class="popup__button popup__button_active " type="submit" id="popup-button" disabled>Сохранить</button> 
         </form> 
@@ -25,9 +25,9 @@
         <form class="popup__container popup__container_place" name="form" id="form-cards" novalidate> 
           <button class="popup__close popup__close_picture" type="reset"></button> 
           <h2 class="popup__title popup__title_margins">Новое место</h2> 
-          <input type="text" class="popup__input" name="input" placeholder="Название" id="cards__name" minlength="1" maxlength="30" required> 
+          <input type="text" class="popup__input" name="name" placeholder="Название" id="cards__name" minlength="1" maxlength="30" required> 
           <span class="popup__input-error" id="cards__name-error"></span>
-          <input type="url" class="popup__input" name="input" placeholder="Ссылка на картинку" id="cards__info" required>
+          <input type="url" class="popup__input" name="link" placeholder="Ссылка на картинку" id="cards__info" required>
           <span class="popup__input-error" id="cards__info-error"></span> 
           <button class="popup__button" type="submit" disabled>Создать</button> 
         </form> 
@@ -35,7 +35,7 @@
 <!-- Попап увеличенной карточки --> 
       <section class="popup popup_opacity" id="zoom"> 
         <div class="popup__zoomed"> 
-          <button class="popup__close-zoom" type="button"></button> 
+          <button class="popup__close popup__close-zoom" type="button"></button> 
           <img class="popup__image"> 
           <p class="popup__caption"></p> 
         </div> 
@@ -76,7 +76,7 @@
       </div> 
     </template> 
     
-    <script type="module" src='./scipt/index.js'></script>
+    <script type="module" src='./pages/index.js'></script>
  
   </body> 
   </html> 
