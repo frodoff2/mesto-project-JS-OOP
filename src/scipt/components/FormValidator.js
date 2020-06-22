@@ -8,7 +8,7 @@ export default class FormValidator{
       this._formElement = formElement;
     }
   
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorElement.textContent = errorMessage;
     if (errorMessage) {
@@ -22,13 +22,13 @@ export default class FormValidator{
   };
   
   // функция проверки валидности формы //
-  _checkInputValidity = (inputElement) => {
+  _checkInputValidity(inputElement) {
       this._showInputError(inputElement, inputElement.validationMessage);
     };  
   
   
     //  функция принимает массив полей
-  _hasInvalidInput = (inputLists) => {
+  _hasInvalidInput(inputLists) {
     // проходим по массиву
     return inputLists.some((inputElement) => {
       // Если поле не валидно, колбэк вернёт true
@@ -37,13 +37,13 @@ export default class FormValidator{
   };
   
   //кнопка 
-  _toggleButtonState = (inputLists , buttonElement) => {
+  _toggleButtonState(inputLists , buttonElement) {
       buttonElement.classList.toggle(this._inactiveButtonClass, this._hasInvalidInput(inputLists)); 
       buttonElement.disabled = this._hasInvalidInput(inputLists); 
    };
 
     // создаем обработчик событий для всех форм //
-  _setEventListeners = () => {
+  _setEventListeners() {
     // нужно сделать массив из всех инпутов
     const inputLists = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);

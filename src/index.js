@@ -1,13 +1,15 @@
-import Card from '../scipt/components/Card.js';  
-import FormValidator from '../scipt/components/FormValidator.js';
-import Section from '../scipt/components/Section.js';
-import Popup from '../scipt/components/Popup.js';
-import { PopupWithImage } from '../scipt/components/PopupWithImage.js';
-import { PopupWithForm } from '../scipt/components/PopupWithForm.js';
-import UserInfo from '../scipt/components/UserInfo.js';
+import './pages/index.css';
+
+import Card from './scipt/components/Card.js';  
+import FormValidator from './scipt/components/FormValidator.js';
+import Section from './scipt/components/Section.js';
+import Popup from './scipt/components/Popup.js';
+import { PopupWithImage } from './scipt/components/PopupWithImage.js';
+import { PopupWithForm } from './scipt/components/PopupWithForm.js';
+import UserInfo from './scipt/components/UserInfo.js';
 import { zoom, infoPopup, editButton, formButton, cards, 
          cardsAddButton, cardListSelector, buttonItems, 
-        zoomTitle, zoomImage } from '../scipt/utills/constants.js';
+        zoomTitle, zoomImage } from './scipt/utills/constants.js';
 
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
 
