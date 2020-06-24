@@ -1,21 +1,17 @@
-import { userName, userInfo } from '../utills/constants.js';
 
 export default class UserInfo {
-  constructor({ profileName, profileJob }) {
+  constructor( { profileName, profileJob }) {
     this._profileName = profileName;
     this._profileJob = profileJob;
-    this._userName = userName;
-    this._userInfo = userInfo;
   }
   
   getUserInfo() {
-    this._userName.value = this._profileName.textContent;   
-    this._userInfo.value = this._profileJob.textContent;  
-  } 
-
-  setUserInfo() { 
-    this._profileName.textContent = this._userName.value;  
-    this._profileJob.textContent = this._userInfo.value; 
+  return { name: this._profileName.textContent,
+          link: this._profileJob.textContent }
+}
+  setUserInfo(data) { 
+    this._profileName.textContent = data.name;   
+    this._profileJob.textContent = data.link;  
   }
 
 }
