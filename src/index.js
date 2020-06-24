@@ -40,18 +40,11 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'   
   }   
 ];   
-  
-function clearError() {
-  const element = {};
-  const object = {inputSelector: '.popup__input'};
-  const valid = new FormValidator(object, element);
-  valid.cleanError();
-  
-} 
+
 // отрытие попапов
  function openPopup(item) {
   item.open();
-  clearError();  
+  formValidation();
 } 
   // обойдем массив SECTION, добавим карточки
  const cardsList = new Section({ 
@@ -83,8 +76,8 @@ const formSubmitHandler = new UserInfo({
 // пользователи могут изменять профиль
 const editForm = new PopupWithForm({
   popupSelector: infoPopup,
-  submitForm: () => {
-  formSubmitHandler.setUserInfo();
+  submitForm: (data) => {
+  formSubmitHandler.setUserInfo(data);
   }
 });
 
@@ -114,6 +107,8 @@ function formValidation() {
     formLists.forEach((form) => { 
       const validator = new FormValidator(formSettings, form);
       validator.enableValidation();
+      validator.cleanError();
+
 });
 }
 formValidation();
@@ -121,16 +116,12 @@ formValidation();
 // нажатие на кнопку добавить карточку
 cardsAddButton.addEventListener('click', () => {
   openPopup(cardSubmitHandler);
-  buttonItems.forEach((item) => { 
-    item.setAttribute('disabled', true); 
-    item.classList.add('popup__button_inactive'); 
-  }); 
  }); 
 
 // нажатие на кнопку редактировать профиль 
 editButton.addEventListener('click', () => {
   openPopup(editForm);
-  formSubmitHandler.getUserInfo();
-  formButton.disabled = false;  
-  formButton.classList.remove('popup__button_inactive');
+  const author = formSubmitHandler.getUserInfo();
+  nameInput.value = author.name;
+  jobInput.value = author.link;
 });  
