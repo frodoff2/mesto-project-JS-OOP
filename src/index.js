@@ -7,9 +7,10 @@ import Popup from './scipt/components/Popup.js';
 import { PopupWithImage } from './scipt/components/PopupWithImage.js';
 import { PopupWithForm } from './scipt/components/PopupWithForm.js';
 import UserInfo from './scipt/components/UserInfo.js';
-import { zoom, infoPopup, editButton, formButton, cards, 
-         cardsAddButton, cardListSelector, buttonItems, 
-        zoomTitle, zoomImage } from './scipt/utills/constants.js';
+import { zoom, infoPopup, editButton, cards, 
+         cardsAddButton, cardListSelector, 
+        zoomTitle, zoomImage, infoContainer, 
+        cardContainer, nameInput, jobInput } from './scipt/utills/constants.js';
 
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
 
@@ -44,7 +45,6 @@ const initialCards = [
 // отрытие попапов
  function openPopup(item) {
   item.open();
-  formValidation();
 } 
   // обойдем массив SECTION, добавим карточки
  const cardsList = new Section({ 
@@ -90,36 +90,45 @@ const cardSubmitHandler = new PopupWithForm( {
     } 
   }, '.elements-template');
     const cardElement = card.generateCard();
-    cardsList.addItem(cardElement);
+    cardsList.createItem(cardElement);
   }
 }); 
+
+const formSettings = { 
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
 
 // обработаем ошибки //
 function formValidation() { 
     const formLists = Array.from(document.querySelectorAll('.popup__container')); 
-    const formSettings = { 
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-  };
     formLists.forEach((form) => { 
       const validator = new FormValidator(formSettings, form);
       validator.enableValidation();
-      validator.cleanError();
-
 });
+  // валидация формы 
 }
 formValidation();
 
+
+// очищаем 
+const infoValidate = new FormValidator(formSettings, infoContainer);
+infoValidate.enableValidation();
+const cardValidate = new FormValidator(formSettings, cardContainer);
+cardValidate.enableValidation();
+
 // нажатие на кнопку добавить карточку
 cardsAddButton.addEventListener('click', () => {
+  cardValidate.cleanError(); 
   openPopup(cardSubmitHandler);
  }); 
 
 // нажатие на кнопку редактировать профиль 
 editButton.addEventListener('click', () => {
+  infoValidate.cleanError();
   openPopup(editForm);
   const author = formSubmitHandler.getUserInfo();
   nameInput.value = author.name;

@@ -13,5 +13,8 @@ export const buttonItems = Array.from(document.querySelectorAll('.popup__button'
 export const zoomTitle = document.querySelector('.popup__caption');
 export const zoomImage = document.querySelector('.popup__image');
 
-export const userName = document.getElementById('popup__name');   
-export const userInfo = document.getElementById('popup__info');  
+export const infoContainer = document.getElementById('form-info'); 
+export const cardContainer = document.getElementById('form-cards'); 
+
+export const nameInput = document.getElementById('popup__name'); 
+export const jobInput = document.getElementById('popup__info');

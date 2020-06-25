@@ -62,17 +62,24 @@ export default class FormValidator{
         // передав ей элемент формы 
         this._setEventListeners(this._formElement);
       }
-    cleanError() {
-        const inputItems = Array.from(document.querySelectorAll(this._inputSelector)); 
+      cleanError() {
+        const inputLists = Array.from(document.querySelectorAll(this._inputSelector)); 
         const spanItems = Array.from(document.querySelectorAll('.popup__input-error')); 
+        const buttonCard = document.getElementById('button-card');
+        const buttonInfo = document.getElementById('button-info');
 
-        inputItems.forEach((element) => { 
+              //  this._formElement.reset();
+        inputLists.forEach((element) => { 
             element.classList.remove('popup__input_type_error'); 
           }); 
         spanItems.forEach((elem) => { 
             elem.classList.remove('popup__input-error_active'); 
             elem.textContent = '';  
           }); 
+        buttonCard.setAttribute('disabled', true);  
+        buttonCard.classList.add(this._inactiveButtonClass);  
+        buttonInfo.disabled = false;   
+        buttonInfo.classList.remove(this._inactiveButtonClass); 
         }; 
 
     } 
