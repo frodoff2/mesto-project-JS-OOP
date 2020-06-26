@@ -63,21 +63,18 @@ export default class FormValidator{
         this._setEventListeners(this._formElement);
       }
     cleanError() {
-      const inputLists = Array.from(document.querySelectorAll(this._inputSelector)); 
-      const spanItems = Array.from(document.querySelectorAll('.popup__input-error')); 
-      const buttonCard = document.getElementById('button-card');
-      const buttonInfo = document.getElementById('button-info');
-
-      inputLists.forEach((element) => { 
-        element.classList.remove('popup__input_type_error'); 
-        }); 
-        spanItems.forEach((elem) => { 
-          elem.classList.remove('popup__input-error_active'); 
-          elem.textContent = '';  
-        }); 
-      buttonCard.setAttribute('disabled', true);  
-      buttonCard.classList.add(this._inactiveButtonClass);  
-      buttonInfo.disabled = false;   
-      buttonInfo.classList.remove(this._inactiveButtonClass); 
-      }; 
+      const inputLists = Array.from(this._formElement.querySelectorAll(this._inputSelector));  
+      const spanItems = Array.from(this._formElement.querySelectorAll('.popup__input-error'));
+      const buttonItem = this._formElement.querySelector(this._submitButtonSelector);
+ 
+      inputLists.forEach((element) => {  
+       element.classList.remove('popup__input_type_error');  
+       });  
+       spanItems.forEach((elem) => {  
+         elem.classList.remove('popup__input-error_active');  
+         elem.textContent = '';   
+       });  
+ 
+       this._toggleButtonState(inputLists, buttonItem);
     } 
+  }

@@ -102,19 +102,7 @@ const formSettings = {
   errorClass: 'popup__input-error_active'
 };
 
-// обработаем ошибки //
-function formValidation() { 
-    const formLists = Array.from(document.querySelectorAll('.popup__container')); 
-    formLists.forEach((form) => { 
-      const validator = new FormValidator(formSettings, form);
-      validator.enableValidation();
-});
-  // валидация формы 
-}
-formValidation();
-
-
-// очищаем 
+// обрабатываем ошибки 
 const infoValidate = new FormValidator(formSettings, infoContainer);
 infoValidate.enableValidation();
 const cardValidate = new FormValidator(formSettings, cardContainer);
