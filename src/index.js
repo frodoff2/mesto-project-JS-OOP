@@ -12,6 +12,8 @@ import { zoom, infoPopup, editButton, cards,
         zoomTitle, zoomImage, infoContainer, 
         cardContainer, nameInput, jobInput } from './scipt/utills/constants.js';
 
+import { Api } from './scipt/components/API.js';
+
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
 
 
@@ -47,7 +49,7 @@ const initialCards = [
   item.open();
 } 
   // обойдем массив SECTION, добавим карточки
- const cardsList = new Section({ 
+/* const cardsList = new Section({ 
   data: initialCards, 
   renderer: (cardItem) => {    
     // экземпляр каждой карточки
@@ -65,24 +67,23 @@ const initialCards = [
 cardListSelector
 ); 
 
-cardsList.renderItems();
+cardsList.renderItems();  */
 
-// форма для редактирования профиля
+ // форма для редактирования профиля
 const formSubmitHandler = new UserInfo({
   profileName: document.querySelector('.profile__title'),   
   profileJob: document.querySelector('.profile__subtitle')   
-});
-
-// пользователи могут изменять профиль
-const editForm = new PopupWithForm({
+}); 
+ // пользователи могут изменять профиль
+/* const editForm = new PopupWithForm({
   popupSelector: infoPopup,
   submitForm: (data) => {
   formSubmitHandler.setUserInfo(data);
   }
-});
+}); */
 
 // добавление новой карточки //
-const cardSubmitHandler = new PopupWithForm( {
+/* const cardSubmitHandler = new PopupWithForm( {
   popupSelector: cards, 
   submitForm: (formData) => {
     const card = new Card ({ data: formData, handleCardClick: () => {
@@ -92,7 +93,7 @@ const cardSubmitHandler = new PopupWithForm( {
     const cardElement = card.generateCard();
     cardsList.createItem(cardElement);
   }
-}); 
+}); */
 
 const formSettings = { 
   inputSelector: '.popup__input',
@@ -120,5 +121,100 @@ editButton.addEventListener('click', () => {
   openPopup(editForm);
   const author = formSubmitHandler.getUserInfo();
   nameInput.value = author.name;
-  jobInput.value = author.link;
+  jobInput.value = author.about;
 });  
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me',
+   headers: {
+      authorization: '8eaaf06a-2ca4-4be0-bedd-db145fddf3b1',
+      'Content-Type': 'application/json'
+   }
+})
+
+// получаем информацию о пользователи
+api.getInfo().then(data =>  
+  formSubmitHandler.setUserInfo(data))
+  
+// добавляем карточки в темплейт из сервера
+  const cardsList = new Section({ 
+      renderer: (item) => { 
+        const card = new Card({ 
+                     data: item, 
+                     handleCardClick: () => {
+                       zoomPicture.open(item);
+                     } }, 
+                     (cardObject) => {
+                       if(cardObject.like) {
+                         likeDeleteCard(cardObject);
+                       } else {
+                         likeCard(cardObject);
+                       }
+                       
+                     },
+                     '.elements-template', userId);
+                     addClassCard(item, card);
+        const cardElement = card.generateCard();
+        cardsList.addItem(cardElement);
+      }
+    }, cardListSelector);
+    
+// получаем карточки из сервера
+  api.getInitialCards()
+      .then(data => {
+        cardsList.renderItems(data);
+  });
+
+
+        // экземпляр каждой карточки
+     /* function cardCopy(cardItem) {
+       const card = new Card({ data: cardItem, handleCardClick: () => {
+          zoomPicture.open(cardItem);
+        } }, '.elements-template');
+        const cardElement = card.generateCard();
+        return cardElement
+      } */
+
+
+ // изменяем информацию в профиле
+ const editForm = new PopupWithForm({
+  popupSelector: infoPopup,
+  submitForm: (data) => {
+    api.editProfile(data.name, data.about)
+    .then(res => {
+     // проверка отредактировались ли данные
+      formSubmitHandler.setUserInfo(res);
+    })
+  }
+}); 
+
+// добавляем новую карточку
+const cardSubmitHandler = new PopupWithForm( {
+  popupSelector: cards, 
+  submitForm: (data) => {
+    api.addNewCard(data.name, data.link)
+    .then(res => {
+      const card = new Card ({ data: data, 
+        handleCardClick: () => {
+        zoomPicture.open(res);
+      } 
+  }, '.elements-template');
+    const cardElement = card.generateCard();
+    cardsList.createItem(cardElement);
+  })
+}}); 
+
+const likeCard = function(card) {
+api.addLike(card.id)
+.then(res => {
+  itemsCard.find((item) => (item.id === result.id)).class.returnLikes(result.likes.length);
+});
+}
+
+let itemsCard = [];
+const addClassCard = function(item, card) {
+  itemsCard.unshift({
+    id: item._id,
+    class: card
+  })
+}

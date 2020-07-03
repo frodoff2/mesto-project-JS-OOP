@@ -5,13 +5,18 @@ export default class UserInfo {
     this._profileJob = profileJob;
   }
   
+
+  userinterface() {
+
+  }
+
   getUserInfo() {
   return { name: this._profileName.textContent,
-          link: this._profileJob.textContent }
+           about: this._profileJob.textContent }
 }
   setUserInfo(data) { 
     this._profileName.textContent = data.name;   
-    this._profileJob.textContent = data.link;  
+    this._profileJob.textContent = data.about;  
   }
 
 }
