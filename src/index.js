@@ -75,7 +75,7 @@ api.getInfo().then(data =>
          () => {
           api.deleteLike(cardItem._id)
             .then((res) => { 
-              card.onLike(res.likes.length) 
+              card.offLike(res.likes.length) 
              }) 
         },
         () => {
@@ -147,7 +147,7 @@ const cardSubmitHandler = new PopupWithForm( {
    () => {
     api.deleteLike(res._id)
       .then((res) => { 
-        card.onLike(res.likes.length) 
+        card.offLike(res.likes.length) 
        }) 
   },
   () => {
