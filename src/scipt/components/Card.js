@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector, callbackSendLike, deleteLike, deleteCard, profileInfo) { 
+  constructor({ data, handleCardClick }, cardSelector, callbackSendLike, deleteLike, deleteCard) { 
     this._name = data.name; 
     this._link = data.link; 
     this._counter = data.likes;
@@ -10,7 +10,6 @@ export default class Card {
     this._deleteLike = deleteLike;
     this._owner = data.owner;
     this._deleteCard = deleteCard;
-    this._profileInfo = profileInfo;
   } 
  
   _getTemplate() {

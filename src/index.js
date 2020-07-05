@@ -59,7 +59,20 @@ const api = new Api({
 api.getInfo().then(data =>  
   formSubmitHandler.setUserInfo(data))
 
-  
+function addCardLike(id, item) {
+  api.addLike(id) 
+  .then((res) => { 
+   item.onLike(res.likes.length) 
+  }) 
+}
+
+function deleteCardLike(id, item) {
+  api.deleteLike(id)
+  .then((res) => { 
+  item.offLike(res.likes.length) 
+  }) 
+}
+
 // добавляем карточки в темплейт из сервера
   const cardsList = new Section({ 
       renderer: (cardItem) => { 
@@ -67,28 +80,22 @@ api.getInfo().then(data =>
           zoomPicture.open(cardItem);
         } }, '.elements-template',
         () => {
-          api.addLike(cardItem._id) 
-          .then((res) => { 
-           card.onLike(res.likes.length) 
-          }) 
+          addCardLike(cardItem._id, card);
         },
          () => {
-          api.deleteLike(cardItem._id)
-            .then((res) => { 
-              card.offLike(res.likes.length) 
-             }) 
+          deleteCardLike(cardItem._id, card);
         },
         () => {
           deleteCard.defineElement(cardItem, card);
           deleteCard.open();
-        },
-         api.getInfo()
+        }
         );
         const cardElement = card.generateCard();
         cardsList.addItem(cardElement);
       }
     }, cardListSelector);
     
+
 // получаем карточки из сервера
   api.getInitialCards()
       .then(data => {
@@ -139,22 +146,15 @@ const cardSubmitHandler = new PopupWithForm( {
       } 
   }, '.elements-template',
   () => {
-    api.addLike(res._id) 
-    .then((res) => { 
-     card.onLike(res.likes.length) 
-    }) 
+    addCardLike(res._id, card);
   },
    () => {
-    api.deleteLike(res._id)
-      .then((res) => { 
-        card.offLike(res.likes.length) 
-       }) 
+    deleteCardLike(res._id, card);
   },
   () => {
     deleteCard.defineElement(res, card);
     deleteCard.open();
-  },
-     api.getInfo()
+  }
 );
     const cardElement = card.generateCard();
     cardsList.createItem(cardElement);
