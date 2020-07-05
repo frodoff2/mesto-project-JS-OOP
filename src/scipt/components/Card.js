@@ -29,37 +29,35 @@ export default class Card {
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__like_count').textContent = this._counter.length;
-    this.counterLike();
+
     if  (this._owner._id !== '1d317d259c9989f882343364')  {
       this._element.querySelector('.element__trash').style = 'display: none';
     } 
+    if (this._counter.some((data) => (data._id === '1d317d259c9989f882343364'))) {
+      this._element.querySelector('.element__like').classList.add('element__like_active');
+      }
+
     this._setEventListeners();
 
     return this._element;
   }
 
-  // метод отвечающий за обновление, проверяет мой ли лайк
-   counterLike() {
-    this._element.querySelector('.element__like_count').textContent = this._counter.length;
-    this._profileInfo.then(res => {
-       this._counter.forEach(item => {
-         if (item.name === res.name) {
-           this._element.querySelector('.element__like').classList.add('element__like_active');
-         }
-       })
-      }) 
-  }
-
   _addLike(evt) {
     if (evt.target.classList.contains('element__like_active')) {
-      evt.target.classList.remove('element__like_active')
       this._deleteLike()
-      this._element.querySelector('.element__like_count').textContent = this._counter.length;
     } else {
-      evt.target.classList.add('element__like_active')
       this._callbackSendLike()
-      this._element.querySelector('.element__like_count').textContent = this._counter.length;
   }
+  } 
+
+  onLike(count) {
+  this._element.querySelector('.element__like_count').textContent = count; 
+  this._element.querySelector('.element__like').classList.add('element__like_active'); 
+  }
+
+  offLike(count) { 
+    this._element.querySelector('.element__like_count').textContent = count; 
+    this._element.querySelector('.element__like').classList.remove('element__like_active'); 
   } 
 
   deleteCard() {
@@ -78,7 +76,7 @@ export default class Card {
   }
 
   _setEventListeners() {
- this._element.querySelector('.element__image').addEventListener('click', () => {
+   this._element.querySelector('.element__image').addEventListener('click', () => {
    this._handleCardClick();
    });
 

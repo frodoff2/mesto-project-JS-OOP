@@ -67,13 +67,16 @@ api.getInfo().then(data =>
           zoomPicture.open(cardItem);
         } }, '.elements-template',
         () => {
-          api.addLike(cardItem._id)
-       //   .then((res) => {
-        //    card.counterLike(res);
-         // })
+          api.addLike(cardItem._id) 
+          .then((res) => { 
+           card.onLike(res.likes.length) 
+          }) 
         },
-       () => {
+         () => {
           api.deleteLike(cardItem._id)
+            .then((res) => { 
+              card.onLike(res.likes.length) 
+             }) 
         },
         () => {
           deleteCard.defineElement(cardItem, card);
@@ -136,10 +139,16 @@ const cardSubmitHandler = new PopupWithForm( {
       } 
   }, '.elements-template',
   () => {
-    api.addLike(res._id)
+    api.addLike(res._id) 
+    .then((res) => { 
+     card.onLike(res.likes.length) 
+    }) 
   },
    () => {
     api.deleteLike(res._id)
+      .then((res) => { 
+        card.onLike(res.likes.length) 
+       }) 
   },
   () => {
     deleteCard.defineElement(res, card);
