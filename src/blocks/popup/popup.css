@@ -14,6 +14,10 @@
 @import url('__input-error/popup__input-error.css');
 @import url('__input-error/_active/popup__input-error_active.css');
 @import url('__button/_inactive/popup__button_inactive.css');
+@import url('__confirm/popup__confirm.css');
+@import url('__avatar/popup__avatar.css');
+@import url('__container/_avatar/popup__container_avatar.css');
+@import url('__container/_delete/popup__container_delete.css');
 
 .popup{
   width: 100%;
@@ -24,3 +28,4 @@
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
 }
+

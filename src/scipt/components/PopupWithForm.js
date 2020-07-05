@@ -29,4 +29,14 @@ export class PopupWithForm extends Popup {
     super.close();
     this._popupSelector.querySelector('.popup__container').reset();
   }
+
+
+  loadingButton (check) {
+    if (check === true) {
+      this._popupSelector.querySelector('.popup__button').textContent = 'Сохраняю..'
+    }
+    if (check === false) {
+      this._popupSelector.querySelector('.popup__button').textContent = 'Сохранить'
+    }
+  }
 }

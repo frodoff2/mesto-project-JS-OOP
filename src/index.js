@@ -9,91 +9,26 @@ import { PopupWithForm } from './scipt/components/PopupWithForm.js';
 import UserInfo from './scipt/components/UserInfo.js';
 import { zoom, infoPopup, editButton, cards, 
          cardsAddButton, cardListSelector, 
-        zoomTitle, zoomImage, infoContainer, 
-        cardContainer, nameInput, jobInput } from './scipt/utills/constants.js';
+        zoomTitle, zoomImage, infoContainer, avatarContainer, 
+        cardContainer, nameInput, jobInput, deletePopup, avatar, profileImage } from './scipt/utills/constants.js';
 
 import { Api } from './scipt/components/API.js';
+import PopupDelete from './scipt/components/PopupDelete.js'
 
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
 
-
-const initialCards = [   
-  {   
-      name: 'Архыз',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'   
-  },   
-  {   
-      name: 'Челябинская область',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'   
-  },   
-  {   
-      name: 'Иваново',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'   
-  },   
-  {   
-      name: 'Камчатка',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'   
-  },   
-  {   
-      name: 'Холмогорский район',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'   
-  },   
-  {   
-      name: 'Байкал',   
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'   
-  }   
-];   
 
 // отрытие попапов
  function openPopup(item) {
   item.open();
 } 
-  // обойдем массив SECTION, добавим карточки
-/* const cardsList = new Section({ 
-  data: initialCards, 
-  renderer: (cardItem) => {    
-    // экземпляр каждой карточки
-    const card = new Card({ data: cardItem, handleCardClick: () => {
-      zoomPicture.open(cardItem);
-    }
-    },
-        '.elements-template');  
-    // карточка и возрврат наружу 
-    const cardElement = card.generateCard(); 
-  // Вставим разметку на страницу,
-  cardsList.addItem(cardElement);
-  }
-}, 
-cardListSelector
-); 
-
-cardsList.renderItems();  */
 
  // форма для редактирования профиля
-const formSubmitHandler = new UserInfo({
+ const formSubmitHandler = new UserInfo({
   profileName: document.querySelector('.profile__title'),   
-  profileJob: document.querySelector('.profile__subtitle')   
+  profileJob: document.querySelector('.profile__subtitle'),
+  profileAvatar: document.querySelector('.profile__image')
 }); 
- // пользователи могут изменять профиль
-/* const editForm = new PopupWithForm({
-  popupSelector: infoPopup,
-  submitForm: (data) => {
-  formSubmitHandler.setUserInfo(data);
-  }
-}); */
-
-// добавление новой карточки //
-/* const cardSubmitHandler = new PopupWithForm( {
-  popupSelector: cards, 
-  submitForm: (formData) => {
-    const card = new Card ({ data: formData, handleCardClick: () => {
-    zoomPicture.open(formData);
-    } 
-  }, '.elements-template');
-    const cardElement = card.generateCard();
-    cardsList.createItem(cardElement);
-  }
-}); */
 
 const formSettings = { 
   inputSelector: '.popup__input',
@@ -108,8 +43,132 @@ const infoValidate = new FormValidator(formSettings, infoContainer);
 infoValidate.enableValidation();
 const cardValidate = new FormValidator(formSettings, cardContainer);
 cardValidate.enableValidation();
+const avatarValidate = new FormValidator(formSettings, avatarContainer);
+avatarValidate.enableValidation();
 
-// нажатие на кнопку добавить карточку
+// создаем экземпляр
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me',
+   headers: {
+      authorization: '8eaaf06a-2ca4-4be0-bedd-db145fddf3b1',
+      'Content-Type': 'application/json'
+   }
+})
+
+// получаем информацию о пользователи
+api.getInfo().then(data =>  
+  formSubmitHandler.setUserInfo(data))
+
+  
+// добавляем карточки в темплейт из сервера
+  const cardsList = new Section({ 
+      renderer: (cardItem) => { 
+        const card = new Card({ data: cardItem, handleCardClick: () => {
+          zoomPicture.open(cardItem);
+        } }, '.elements-template',
+        () => {
+          api.addLike(cardItem._id)
+       //   .then((res) => {
+        //    card.counterLike(res);
+         // })
+        },
+       () => {
+          api.deleteLike(cardItem._id)
+        },
+        () => {
+          deleteCard.defineElement(cardItem, card);
+          deleteCard.open();
+        },
+         api.getInfo()
+        );
+        const cardElement = card.generateCard();
+        cardsList.addItem(cardElement);
+      }
+    }, cardListSelector);
+    
+// получаем карточки из сервера
+  api.getInitialCards()
+      .then(data => {
+        cardsList.renderItems(data);
+  });
+
+ // изменяем информацию в профиле
+ const editForm = new PopupWithForm({
+  popupSelector: infoPopup,
+  submitForm: (data) => {
+    editForm.loadingButton(true);
+    api.editProfile(data.name, data.about)
+    .then(res => {
+     // проверка отредактировались ли данные
+      formSubmitHandler.setUserInfo(res);
+    })
+    .finally(() => {
+      editForm.loadingButton(false);
+    })
+  }
+}); 
+
+//меняем аватар 
+const avatarProfile = new PopupWithForm({
+  popupSelector: avatar,
+  submitForm: (data) => {
+    avatarProfile.loadingButton(true);
+    api.changeAvatar(data)
+    .then(res => {
+      formSubmitHandler.setUserAvatar(res);
+    })
+    .finally(() => {
+      avatarProfile.loadingButton(false);
+    })
+  }
+})
+
+// добавляем новую карточку
+const cardSubmitHandler = new PopupWithForm( {
+  popupSelector: cards, 
+  submitForm: (data) => {
+    cardSubmitHandler.loadingButton(true)
+    api.addNewCard(data.name, data.link)
+    .then(res => {
+      const card = new Card ({ data: res, 
+        handleCardClick: () => {
+        zoomPicture.open(res);
+      } 
+  }, '.elements-template',
+  () => {
+    api.addLike(res._id)
+  },
+   () => {
+    api.deleteLike(res._id)
+  },
+  () => {
+    deleteCard.defineElement(res, card);
+    deleteCard.open();
+  },
+     api.getInfo()
+);
+    const cardElement = card.generateCard();
+    cardsList.createItem(cardElement);
+  })
+  .finally(() => {
+    cardSubmitHandler.loadingButton(false);
+  })
+}}); 
+
+// объявляем попап удаления карточки
+const deleteCard = new PopupDelete(
+  {
+  popupSelector: deletePopup } ,
+  (item, card) => {
+    api.deleteCard(item._id)
+    .then(() => {
+      card.deleteCard()
+    })
+    .then(() => deleteCard.close())
+  }
+ )
+
+ // нажатие на кнопку добавить карточку
 cardsAddButton.addEventListener('click', () => {
   cardValidate.cleanError(); 
   openPopup(cardSubmitHandler);
@@ -124,97 +183,7 @@ editButton.addEventListener('click', () => {
   jobInput.value = author.about;
 });  
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me',
-   headers: {
-      authorization: '8eaaf06a-2ca4-4be0-bedd-db145fddf3b1',
-      'Content-Type': 'application/json'
-   }
+// нажатие на кнопку редактирова аватар
+profileImage.addEventListener('click', () => { 
+  avatarValidate.cleanError(); openPopup(avatarProfile); 
 })
-
-// получаем информацию о пользователи
-api.getInfo().then(data =>  
-  formSubmitHandler.setUserInfo(data))
-  
-// добавляем карточки в темплейт из сервера
-  const cardsList = new Section({ 
-      renderer: (item) => { 
-        const card = new Card({ 
-                     data: item, 
-                     handleCardClick: () => {
-                       zoomPicture.open(item);
-                     } }, 
-                     (cardObject) => {
-                       if(cardObject.like) {
-                         likeDeleteCard(cardObject);
-                       } else {
-                         likeCard(cardObject);
-                       }
-                       
-                     },
-                     '.elements-template', userId);
-                     addClassCard(item, card);
-        const cardElement = card.generateCard();
-        cardsList.addItem(cardElement);
-      }
-    }, cardListSelector);
-    
-// получаем карточки из сервера
-  api.getInitialCards()
-      .then(data => {
-        cardsList.renderItems(data);
-  });
-
-
-        // экземпляр каждой карточки
-     /* function cardCopy(cardItem) {
-       const card = new Card({ data: cardItem, handleCardClick: () => {
-          zoomPicture.open(cardItem);
-        } }, '.elements-template');
-        const cardElement = card.generateCard();
-        return cardElement
-      } */
-
-
- // изменяем информацию в профиле
- const editForm = new PopupWithForm({
-  popupSelector: infoPopup,
-  submitForm: (data) => {
-    api.editProfile(data.name, data.about)
-    .then(res => {
-     // проверка отредактировались ли данные
-      formSubmitHandler.setUserInfo(res);
-    })
-  }
-}); 
-
-// добавляем новую карточку
-const cardSubmitHandler = new PopupWithForm( {
-  popupSelector: cards, 
-  submitForm: (data) => {
-    api.addNewCard(data.name, data.link)
-    .then(res => {
-      const card = new Card ({ data: data, 
-        handleCardClick: () => {
-        zoomPicture.open(res);
-      } 
-  }, '.elements-template');
-    const cardElement = card.generateCard();
-    cardsList.createItem(cardElement);
-  })
-}}); 
-
-const likeCard = function(card) {
-api.addLike(card.id)
-.then(res => {
-  itemsCard.find((item) => (item.id === result.id)).class.returnLikes(result.likes.length);
-});
-}
-
-let itemsCard = [];
-const addClassCard = function(item, card) {
-  itemsCard.unshift({
-    id: item._id,
-    class: card
-  })
-}

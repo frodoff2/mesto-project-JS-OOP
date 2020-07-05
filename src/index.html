@@ -39,20 +39,41 @@
           <p class="popup__caption"></p> 
         </div> 
       </section> 
- 
+<!--- Попап подтверждения -->
+<section class="popup popup_opacity-normal" id="delete"> 
+  <form class="popup__container popup__container_delete" id="confrim-form"> 
+    <button class="popup__close" type="reset" id="confirm_reset"> </button>
+    <h2 class="popup__title"> Вы уверены? </h2>
+    <button class="popup__button" id="confirm-button">Да</button>
+  </form>
+</section>
+  
+<!-- Смена аватара -->
+<section class="popup popup_opacity-normal" id="avatar"> 
+  <form class="popup__container popup__container_avatar" id="avatar-form"> 
+    <button class="popup__close" type="reset"> </button>
+    <h2 class="popup__title">Обновить аватар</h2>
+    <input type="url" class="popup__input" name="avatar" id="avatar__url" required>
+    <span class ="popup__input-error" id="avatar__url-error"> </span>
+    <button class="popup__button" id="avatar-button"> Сохранить</button>
+  </form>
+</section>
+
+
       <header class="header"> 
         <img class="header__logo" src="./images/logo.svg" alt="логотип">   
       </header> 
        
       <section class="profile"> 
-        <img class="profile__image" src="https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg" name="avatar" alt="фотография Жак-Ив Кусто"> 
+        <img class="profile__image" src="./images/zhakiv.jpg" name="avatar" alt="фотография Жак-Ив Кусто"> 
+        <div class="profile__pen"> </div>
         <div class="profile__info">  
           <h1 class="profile__title">Жак-Ив Кусто</h1> 
           <p class="profile__subtitle">Исследователь океана</p> 
         </div> 
         <button class="profile__edit" type="button"></button> 
         <button class="profile__add-button" type="button"></button> 
-      </section> 
+      </section>
  
       <section class="elements"> 
        
@@ -71,7 +92,7 @@
         <div class="element__text"> 
           <h2 class="element__title"></h2> 
           <button class="element__like" type="button"></button> 
-          <div class="element__like-count">0</div>
+          <div class="element__like_count"></div>
         </div> 
       </div> 
     </template> 
