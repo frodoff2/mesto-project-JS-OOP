@@ -17,9 +17,6 @@ export class Api {
         // если ошибка, отклоняем промис
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch(err => {
-        console.log(err)
-      })
   }
 
   getInitialCards() {
@@ -33,9 +30,6 @@ export class Api {
       }
       // если ошибка, отклоняем промис
       return Promise.reject(`Карточки не загружены: ${res.status}`);
-      })
-      .catch(err => {
-       console.log(err)
       })
   }
 
@@ -55,9 +49,6 @@ export class Api {
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch(err => {
-      console.log(err)
-    })
   }
   
   addNewCard(title, url) {
@@ -76,9 +67,6 @@ export class Api {
           // если ошибка, отклоняем промис
           return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .catch(err => {
-          console.log(err)
-        })
   }
   
   removeCard(id){
@@ -92,9 +80,6 @@ export class Api {
      }
      // если ошибка, отклоняем промис
      return Promise.reject(`Ошибка: ${res.status}`);
-   })
-   .catch(err => {
-     console.log(err)
    })
   } 
   
@@ -111,9 +96,6 @@ export class Api {
      // если ошибка, отклоняем промис
      return Promise.reject(`Ошибка: ${res.status}`);
    })
-   .catch(err => {
-     console.log(err)
-   })
  } 
 
 deleteLike(id) {
@@ -128,9 +110,6 @@ deleteLike(id) {
      // если ошибка, отклоняем промис
      return Promise.reject(`Ошибка: ${res.status}`);
    })
-   .catch(err => {
-     console.log(err)
-   })
  } 
 
 deleteCard(id) {
@@ -144,9 +123,6 @@ deleteCard(id) {
    }
    // если ошибка, отклоняем промис
    return Promise.reject(`Ошибка: ${res.status}`);
- })
- .catch(err => {
-   console.log(err)
  })
 } 
 
@@ -165,10 +141,6 @@ changeAvatar(userAvatar) {
    // если ошибка, отклоняем промис
    return Promise.reject(`Ошибка: ${res.status}`);
  })
- .catch(err => {
-   console.log(err)
- })
- 
 }
 }
 

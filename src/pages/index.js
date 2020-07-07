@@ -1,19 +1,19 @@
-import './pages/index.css';
+import './index.css';
 
-import Card from './scipt/components/Card.js';  
-import FormValidator from './scipt/components/FormValidator.js';
-import Section from './scipt/components/Section.js';
-import Popup from './scipt/components/Popup.js';
-import { PopupWithImage } from './scipt/components/PopupWithImage.js';
-import { PopupWithForm } from './scipt/components/PopupWithForm.js';
-import UserInfo from './scipt/components/UserInfo.js';
+import Card from '../scipt/components/Card.js';  
+import FormValidator from '../scipt/components/FormValidator.js';
+import Section from '../scipt/components/Section.js';
+import Popup from '../scipt/components/Popup.js';
+import { PopupWithImage } from '../scipt/components/PopupWithImage.js';
+import { PopupWithForm } from '../scipt/components/PopupWithForm.js';
+import UserInfo from '../scipt/components/UserInfo.js';
 import { zoom, infoPopup, editButton, cards, 
          cardsAddButton, cardListSelector, 
         zoomTitle, zoomImage, infoContainer, avatarContainer, 
-        cardContainer, nameInput, jobInput, deletePopup, avatar, profileImage } from './scipt/utills/constants.js';
+        cardContainer, nameInput, jobInput, deletePopup, avatar, profileImage } from '../scipt/utills/constants.js';
 
-import { Api } from './scipt/components/API.js';
-import PopupDelete from './scipt/components/PopupDelete.js'
+import { Api } from '../scipt/components/API.js';
+import PopupDelete from '../scipt/components/PopupDelete.js'
 
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
 
@@ -55,14 +55,13 @@ const api = new Api({
    }
 })
 
-// получаем информацию о пользователи
-api.getInfo().then(data =>  
-  formSubmitHandler.setUserInfo(data))
-
 function addCardLike(id, item) {
   api.addLike(id) 
   .then((res) => { 
    item.onLike(res.likes.length) 
+  }) 
+  .catch(err => { 
+    console.log(err) 
   }) 
 }
 
@@ -70,6 +69,9 @@ function deleteCardLike(id, item) {
   api.deleteLike(id)
   .then((res) => { 
   item.offLike(res.likes.length) 
+  }) 
+  .catch(err => {  
+    console.log(err) 
   }) 
 }
 
@@ -100,7 +102,10 @@ function deleteCardLike(id, item) {
   api.getInitialCards()
       .then(data => {
         cardsList.renderItems(data);
-  });
+      })
+      .catch(err => {  
+        console.log(err) 
+      }) 
 
  // изменяем информацию в профиле
  const editForm = new PopupWithForm({
@@ -112,6 +117,9 @@ function deleteCardLike(id, item) {
      // проверка отредактировались ли данные
       formSubmitHandler.setUserInfo(res);
     })
+    .catch(err => {  
+      console.log(err) 
+    }) 
     .finally(() => {
       editForm.loadingButton(false);
     })
@@ -127,10 +135,19 @@ const avatarProfile = new PopupWithForm({
     .then(res => {
       formSubmitHandler.setUserAvatar(res);
     })
+    .catch(err => {  
+      console.log(err) 
+    }) 
     .finally(() => {
       avatarProfile.loadingButton(false);
     })
   }
+})
+
+api.getInfo()
+.then((res) => {
+  formSubmitHandler.setUserInfo(res);
+  formSubmitHandler.setUserAvatar(res);
 })
 
 // добавляем новую карточку
@@ -159,6 +176,9 @@ const cardSubmitHandler = new PopupWithForm( {
     const cardElement = card.generateCard();
     cardsList.createItem(cardElement);
   })
+  .catch(err => {  
+    console.log(err) 
+  }) 
   .finally(() => {
     cardSubmitHandler.loadingButton(false);
   })
@@ -174,6 +194,9 @@ const deleteCard = new PopupDelete(
       card.deleteCard()
     })
     .then(() => deleteCard.close())
+    .catch(err => {  
+      console.log(err) 
+    }) 
   }
  )
 
@@ -194,5 +217,6 @@ editButton.addEventListener('click', () => {
 
 // нажатие на кнопку редактирова аватар
 profileImage.addEventListener('click', () => { 
-  avatarValidate.cleanError(); openPopup(avatarProfile); 
+  avatarValidate.cleanError(); 
+  openPopup(avatarProfile); 
 })
