@@ -16,6 +16,7 @@ import { Api } from '../scipt/components/API.js';
 import PopupDelete from '../scipt/components/PopupDelete.js'
 
 const zoomPicture = new PopupWithImage(zoom, zoomImage, zoomTitle);
+let userId; 
 
 
 // отрытие попапов
@@ -75,6 +76,18 @@ function deleteCardLike(id, item) {
   }) 
 }
 
+// получаем информацию от пользователя, его айди, получаем карточки.
+Promise.all([ api.getInfo(), api.getInitialCards() ])
+  .then(value => {
+    userId = value[0];
+    formSubmitHandler.setUserInfo(value[0]);
+    formSubmitHandler.setUserAvatar(value[0]);
+    cardsList.renderItems(value[1]);
+  })
+  .catch(err => {  
+    console.log(err) 
+  })
+
 // добавляем карточки в темплейт из сервера
   const cardsList = new Section({ 
       renderer: (cardItem) => { 
@@ -90,23 +103,13 @@ function deleteCardLike(id, item) {
         () => {
           deleteCard.defineElement(cardItem, card);
           deleteCard.open();
-        }
+        }, userId
         );
         const cardElement = card.generateCard();
         cardsList.addItem(cardElement);
       }
     }, cardListSelector);
     
-
-// получаем карточки из сервера
-  api.getInitialCards()
-      .then(data => {
-        cardsList.renderItems(data);
-      })
-      .catch(err => {  
-        console.log(err) 
-      }) 
-
  // изменяем информацию в профиле
  const editForm = new PopupWithForm({
   popupSelector: infoPopup,
@@ -144,12 +147,6 @@ const avatarProfile = new PopupWithForm({
   }
 })
 
-api.getInfo()
-.then((res) => {
-  formSubmitHandler.setUserInfo(res);
-  formSubmitHandler.setUserAvatar(res);
-})
-
 // добавляем новую карточку
 const cardSubmitHandler = new PopupWithForm( {
   popupSelector: cards, 
@@ -171,7 +168,8 @@ const cardSubmitHandler = new PopupWithForm( {
   () => {
     deleteCard.defineElement(res, card);
     deleteCard.open();
-  }
+  }, 
+  userId
 );
     const cardElement = card.generateCard();
     cardsList.createItem(cardElement);

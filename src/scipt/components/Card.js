@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, handleCardClick }, cardSelector, callbackSendLike, deleteLike, deleteCard) { 
+  constructor({ data, handleCardClick }, cardSelector, callbackSendLike, deleteLike, deleteCard, userId) { 
     this._name = data.name; 
     this._link = data.link; 
     this._counter = data.likes;
@@ -10,6 +10,7 @@ export default class Card {
     this._deleteLike = deleteLike;
     this._owner = data.owner;
     this._deleteCard = deleteCard;
+    this._userId = userId
   } 
  
   _getTemplate() {
@@ -29,10 +30,10 @@ export default class Card {
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__like_count').textContent = this._counter.length;
 
-    if  (this._owner._id !== '1d317d259c9989f882343364')  {
+    if  (this._userId._id !== this._owner._id)  {
       this._element.querySelector('.element__trash').style = 'display: none';
     } 
-    if (this._counter.some((data) => (data._id === '1d317d259c9989f882343364'))) {
+    if (this._counter.some((data) => (data._id === this._userId._id))) {
       this._element.querySelector('.element__like').classList.add('element__like_active');
       }
 
